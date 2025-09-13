@@ -1,0 +1,14 @@
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+.env
+.env.*
+/uploads/
+/dist/
+/.DS_Store
+coverage/
+/.idea/
+.vscode/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
