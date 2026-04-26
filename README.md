@@ -1,104 +1,159 @@
+# 📄 PDF Annotator — Professional Portfolio Edition
 
+<div align="center">
 
-# PDF Annotator Full Stack
+![Project Banner](https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80)
 
-A modern web application for uploading, viewing, and annotating PDF files. Users can highlight text, add notes, and manage their own PDF library—all securely stored and restored per user. Built with React, Node.js, Express, and MongoDB.
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Express](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)](https://expressjs.com/)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 
-## Problem Statement
-Build a full-stack React application that allows users to upload PDF files, highlight text within the document, and persist these highlights for later viewing. The application supports user login, saving uploaded PDFs and their annotations to a backend, and reloading them with previously saved highlights. PDF files are stored locally on the server machine. Each file and its highlights are uniquely tracked using UUIDs.
+**A modern, full-stack PDF management and annotation platform designed for seamless reading and persistent note-taking.**
 
-## Objective & Core Features
+[Explore Features](#-key-features) • [Technical Architecture](#-system-architecture) • [Setup Guide](#-getting-started) • [API Reference](#-api-documentation)
 
-### Frontend (React)
-1. **User Authentication**
-	- Registration and login using email/password
-	- JWT tokens for session handling
-2. **PDF Upload and Viewer**
-	- Upload PDF files from local system
-	- In-browser PDF display with pagination
-3. **Text Highlighting**
-	- Select and highlight text across any page
-	- Each highlight stores: PDF UUID, page number, highlighted text, position/bounding box, and timestamp
-4. **Persisting Highlights**
-	- Save highlights in backend (MongoDB) associated with user and PDF UUID
-5. **Restoring Highlights**
-	- Retrieve and display highlights when a PDF is re-opened
-6. **My Library (Dashboard)**
-	- List of uploaded PDFs for the logged-in user
-	- Open, rename, or delete files
+</div>
 
-### Backend (Node.js + Express)
-1. **Authentication APIs**
-	- Endpoints for login, signup, and token verification
-2. **PDF Upload API**
-	- Accept and store uploaded PDF files on local file system
-	- Generate and return a UUID for each PDF
-	- Save metadata (filename, user ID, UUID) in MongoDB
-3. **Highlight API**
-	- Endpoints to create, retrieve, update, or delete highlights by PDF UUID and user
-	- Data stored in MongoDB under associated user and PDF
-4. **PDF Listing API**
-	- Fetch list of uploaded PDFs for a logged-in user
+---
 
-## Tech Stack
-- **Frontend:** React, react-pdf, pdfjs-dist, axios
-- **Backend:** Node.js, Express, multer, uuid, mongoose
-- **Database:** MongoDB
-- **Authentication:** JWT-based login
-- **Storage:** Local file system (PDFs saved on backend)
+## 🌟 Overview
 
-## Setup Instructions
+**PDF Annotator** is a comprehensive full-stack application that empowers users to manage their digital PDF library with precision. Beyond just a viewer, it provides advanced text highlighting and annotation capabilities, ensuring that your insights are preserved across sessions. 
 
-### Prerequisites
-- Node.js (v18+)
-- npm
-- MongoDB (local or Atlas)
+Built with the **MERN stack**, the application leverages the power of `react-pdf` for high-performance document rendering and a robust Node.js backend for secure data persistence.
 
-### Backend
-1. `cd backend`
-2. `npm install`
-3. Create a `.env` file in `backend/` (see below)
-4. `npm run dev` (for development) or `npm start`
+---
+
+## 🔥 Key Features
+
+### 📂 Smart Library Management
+- **Centralized Dashboard:** A personalized library view for every user to manage their uploaded documents.
+- **Secure Storage:** PDF files are stored on a secure server environment with unique UUID tracking.
+- **File Operations:** Rename or delete your documents with instant backend synchronization.
+
+### 🖋️ Advanced Annotation Suite
+- **Precision Highlighting:** Select any text within the PDF to highlight it in real-time.
+- **Persistent Memory:** All highlights, including their exact coordinates, page numbers, and timestamps, are saved to MongoDB.
+- **Auto-Restoration:** Re-opening a PDF automatically fetches and renders all previous annotations exactly where you left them.
+- **Note Integration:** Attach custom notes to specific highlights for deeper context.
+
+### 🔐 Security & Auth
+- **JWT Authentication:** Secure user sessions using JSON Web Tokens.
+- **Private Access:** Every user has their own private space; your PDFs and highlights are yours alone.
+- **Scalable Architecture:** Built to handle concurrent users and growing document libraries.
+
+---
+
+## 🛠️ Tech Stack
 
 ### Frontend
-1. `cd frontend`
-2. `npm install`
-3. `npm run dev`
-4. Open the Vite URL (usually http://localhost:5173)
+- **Framework:** React 18 (Vite-powered)
+- **PDF Engine:** `react-pdf` & `pdfjs-dist`
+- **State Management:** React Context / Hooks
+- **Styling:** Tailwind CSS
+- **Networking:** Axios
 
-### Sample `.env` (backend/.env)
+### Backend
+- **Runtime:** Node.js
+- **Framework:** Express.js
+- **Database:** MongoDB (via Mongoose)
+- **Auth:** JWT (JSON Web Token)
+- **File Handling:** Multer
+- **ID Generation:** UUID v4
+
+---
+
+## 🏗️ System Architecture
+
+The application follows a decoupled client-server architecture:
+
+1.  **Frontend (React):** Communicates with the backend via RESTful APIs. It handles the complex logic of calculating text coordinates for highlights and rendering them on the canvas.
+2.  **Backend (Express):** Manages authentication, PDF metadata, and the CRUD (Create, Read, Update, Delete) operations for highlights.
+3.  **Storage Layer:**
+    *   **MongoDB:** Stores user credentials, PDF metadata (UUIDs, names), and annotation data (coordinates, text, color).
+    *   **Filesystem:** Stores the actual `.pdf` binary files, indexed by their UUIDs for fast retrieval.
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18.0.0 or higher)
+- MongoDB instance (Local or Atlas)
+- npm or yarn
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/your-username/PDF-Annotator.git
+cd PDF-Annotator
 ```
-MONGODB_URI=mongodb://localhost:27017/pdf-annotator
-JWT_SECRET=replace_with_secure_random
+
+### 2. Backend Configuration
+```bash
+cd backend
+npm install
+```
+Create a `.env` file in the `backend` directory:
+```env
 PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_super_secret_key
+```
+Run the backend:
+```bash
+npm run dev
 ```
 
-## API Endpoints (Summary)
+### 3. Frontend Configuration
+```bash
+cd ../frontend
+npm install
+npm run dev
+```
+The application will be available at `http://localhost:5173`.
 
-**Authentication**
-- POST `/api/auth/signup` — create user
-- POST `/api/auth/login` — login (returns JWT)
-- GET `/api/auth/authenticate` — verify token / get user info
+---
 
-**PDFs**
-- GET `/api/pdfs` — list user's PDFs
-- POST `/api/pdfs` — upload (multipart form, `pdfFile`)
-- GET `/api/pdfs/:uuid` — stream/view PDF
-- PUT `/api/pdfs/:uuid` — rename PDF
-- DELETE `/api/pdfs/:uuid` — delete PDF (and file)
+## 🔌 API Documentation
 
-**Highlights**
-- GET `/api/highlights/:pdfId` — list highlights for a PDF
-- POST `/api/highlights` — create highlight ({ pdfId, pageNumber, text, position, color })
-- PUT `/api/highlights/:id` — update highlight (e.g., add note)
-- DELETE `/api/highlights/:id` — delete highlight
+| Endpoint | Method | Description | Auth Required |
+| :--- | :--- | :--- | :--- |
+| `/api/auth/signup` | `POST` | Register a new user | No |
+| `/api/auth/login` | `POST` | Authenticate and receive JWT | No |
+| `/api/pdfs` | `GET` | List all PDFs for the user | Yes |
+| `/api/pdfs` | `POST` | Upload a new PDF | Yes |
+| `/api/pdfs/:uuid` | `DELETE`| Remove a PDF | Yes |
+| `/api/highlights/:pdfId` | `GET` | Fetch all highlights for a PDF | Yes |
+| `/api/highlights` | `POST` | Save a new highlight | Yes |
 
-## Data Model (Summary)
-- **PDF:** { uuid, originalName, storedName, user, uploadDate }
-- **Highlight:** { pdfId, pageNumber, position, color, text, user, note, time }
+---
 
-## Success Criteria
-- Each user can upload, annotate, and view only their own PDFs and highlights
-- Highlights are accurately saved and restored using PDF UUIDs
-- Uploaded files are correctly stored and managed on the server file system
-- Application behaves reliably across login sessions
+## 📈 Future Roadmap
+- [ ] **Collaborative Reading:** Real-time shared annotations for teams.
+- [ ] **Dark Mode:** Enhanced viewing experience for night owls.
+- [ ] **Search Engine:** Deep search through text within uploaded PDFs.
+- [ ] **Mobile App:** Dedicated React Native application for on-the-go reading.
+
+---
+
+## 🤝 Contributing
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## ⚖️ License
+Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+
+<div align="center">
+  Developed with ❤️ by [Your Name]
+</div>
