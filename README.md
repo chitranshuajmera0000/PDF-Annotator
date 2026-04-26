@@ -1,4 +1,4 @@
-# 📄 PDF Annotator — Professional Portfolio Edition
+# 📄 PDF Annotator
 
 <div align="center">
 
